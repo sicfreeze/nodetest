@@ -1,16 +1,20 @@
-var express = require("express");
-var app = express();
+const express = require('express')
+const app = express()
 
-var port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000
 
-app.get("/", (req, res) => {
-    var responseObject = {
-        status: true,
-        data: { text: "hello" }
-    }
-    res.json(responseObject);
-});
+app.get('/', (req, res) => {
+  res.json({
+    message: 'OK'
+  })
+})
 
-app.listen(port, () => {
-   console.log("application is listening on:", port);
-});
+app.get('*', (req, res) => {
+  res.json({
+    message: 'Error'
+  })
+})
+
+app.listen(PORT, () => {
+  console.log(`Server is listening on ${PORT}`)
+})
