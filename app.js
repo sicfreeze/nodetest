@@ -21,7 +21,7 @@ restService.post("/cate", function(req, res) {
   if((req.body.queryResult &&
     req.body.queryResult.parameters &&
     req.body.queryResult.parameters.cate )
-    == ('อุณหภูมิภายในบ้าน' && ('อุณหภูมิ')) ){
+    == ('อุณหภูมิภายในบ้าน' || 'อุณหภูมิ') ){
       speech = 'รอสักครู่กำลังดึงข้อมูล อุณหภูมิภายในบ้าน'
     }else if((req.body.queryResult &&
       req.body.queryResult.parameters &&
@@ -31,7 +31,7 @@ restService.post("/cate", function(req, res) {
       }else if((req.body.queryResult &&
         req.body.queryResult.parameters &&
         req.body.queryResult.parameters.cate )
-        == ('ไฟฟ้า' && ('ไฟฟ้าภายในบ้าน')) ){
+        == ('ไฟฟ้า' || 'ไฟฟ้าภายในบ้าน') ){
           speech = 'รอสักครู่กำลังดึงข้อมูล ไฟฟ้าภายในบ้าน'
       }else
 
