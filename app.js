@@ -20,18 +20,15 @@ restService.post("/cate", function(req, res) {
   var speech = '';
   if((req.body.queryResult &&
     req.body.queryResult.parameters &&
-    req.body.queryResult.parameters.cate )
-    == ('อุณหภูมิภายในบ้าน' || 'อุณหภูมิ') ){
+    req.body.queryResult.parameters.cate ).match(/อุณหภูมิ.*/)){
       speech = 'รอสักครู่กำลังดึงข้อมูล อุณหภูมิภายในบ้าน'
     }else if((req.body.queryResult &&
       req.body.queryResult.parameters &&
-      req.body.queryResult.parameters.cate )
-      == 'กล้องวงจรปิด' ){
+      req.body.queryResult.parameters.cate ).match(/กล้องวงจรปิด.*/)){
        speech = 'รอสักครู่กำลังดึงข้อมูล กล้องวงจรปิด'
       }else if((req.body.queryResult &&
         req.body.queryResult.parameters &&
-        req.body.queryResult.parameters.cate )
-        == ('ไฟฟ้า' || 'ไฟฟ้าภายในบ้าน') ){
+        req.body.queryResult.parameters.cate ).match(/ไฟฟ้า.*/)){
           speech = 'รอสักครู่กำลังดึงข้อมูล ไฟฟ้าภายในบ้าน'
       }else
 
