@@ -1,20 +1,67 @@
-const express = require('express')
-const app = express()
 
 const PORT = process.env.PORT || 4000
 
-app.get('/', (req, res) => {
-  res.json({
-    message: 'OK'
-  })
-})
+"use strict";
 
-app.get('*', (req, res) => {
-  res.json({
-    message: 'Error'
-  })
-})
+const express = require("express");
+const bodyParser = require("body-parser");
 
-app.listen(PORT, () => {
+const restService = express();
+
+restService.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
+
+restService.use(bodyParser.json());
+
+restService.post("/cate", function(req, res) {
+  var speech = '';
+  if((req.body.queryResult &&
+    req.body.queryResult.parameters &&
+    req.body.queryResult.parameters.echoText )
+    == ('อุณหภูมิภายในบ้าน' || ('อุณหภูมิ')) ){
+      speech = 'รอสักครู่กำลังดึงข้อมูล อุณหภูมิภายในบ้าน'
+    }else if((req.body.queryResult &&
+      req.body.queryResult.parameters &&
+      req.body.queryResult.parameters.echoText )
+      == 'กล้องวงจรปิด' ){
+       speech = 'รอสักครู่กำลังดึงข้อมูล กล้องวงจรปิด'
+      }else if((req.body.queryResult &&
+        req.body.queryResult.parameters &&
+        req.body.queryResult.parameters.echoText )
+        == ('ไฟฟ้า' || ('ไฟฟ้าภายในบ้าน')) ){
+          speech = 'รอสักครู่กำลังดึงข้อมูล ไฟฟ้าภายในบ้าน'
+      }else
+
+    
+      speech =  "ยังไม่มี บริการนี้ให้ใช้!!";
+  
+  var speechResponse = {
+    google: {
+      expectUserResponse: true,
+      richResponse: {
+        items: [
+          {
+            simpleResponse: {
+              textToSpeech: speech
+            }
+          }
+        ]
+      }
+    }
+  };
+  
+  return res.json({
+    payload: speechResponse,
+    //data: speechResponse,
+    fulfillmentText: speech,
+    speech: speech,
+    displayText: speech
+  });
+});
+
+restService.listen(PORT, () => {
   console.log(`Server is listening on ${PORT}`)
 })
