@@ -30,10 +30,7 @@ restService.post("/cate", function(req, res) {
         req.body.queryResult.parameters &&
         req.body.queryResult.parameters.cate ).match(/ไฟฟ้า.*/)){
           speech = 'รอสักครู่กำลังดึงข้อมูล ไฟฟ้าภายในบ้าน'
-      }else
-
-    
-      speech =  "ยังไม่มี บริการนี้ให้ใช้!!";
+      }
   
   var speechResponse = {
     google: {
